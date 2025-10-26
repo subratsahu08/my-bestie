@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>360° Romantic Birthday</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: 
+      linear-gradient(rgba(255, 230, 240, 0.8), rgba(255, 200, 230, 0.8)),
+      url("img_16.jpg") no-repeat center center fixed;
+    background-size: cover;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 50px;
+    background: linear-gradient(45deg, #ff4d6d, #ff99cc, #d138f0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 3px 12px rgba(255,0,80,0.5);
+  }
+
+  h2 {
+    text-align: center;
+    color: #ff3366;
+    text-shadow: 0 1px 6px rgba(255,0,80,0.5);
+  }
+
+  p {
+    text-indent: 30px;
+    line-height: 1.6;
+    color: #660033;
+  }
+
+  .carousel-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 80px 0;
+    position: relative;
+  }
+
+  .carousel {
+    position: relative;
+    width: 320px;
+    height: 400px;
+    transform-style: preserve-3d;
+    transform: rotateX(0deg) rotateY(0deg);
+    transition: transform 0.1s linear;
+  }
+
+  .carousel img {
+  position: absolute;
+  width: 220px;
+  height: 360px;
+  object-fit: cover;
+  border-radius: 18px;
+  transform-origin: center center;
+  transition: transform 0.5s ease, box-shadow 0.5s ease, filter 0.5s ease;
+  
+  /* Better shadow + glow */
+  box-shadow: 0 10px 25px rgba(255, 0, 120, 0.4), 
+              0 0 20px rgba(255, 80, 180, 0.4);
+
+  /* Smooth brightness for depth effect */
+  filter: brightness(0.85) saturate(1.2);
+}
+
+/* When hovered → pop-out */
+.carousel img:hover {
+  transform: scale(1.1) translateZ(40px);
+  box-shadow: 0 15px 40px rgba(255, 0, 120, 0.6), 
+              0 0 35px rgba(255, 100, 200, 0.7);
+  filter: brightness(1.05) saturate(1.4);
+}
+
+/* Add a glowing border effect */
+.carousel img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  border: 2px solid rgba(255, 100, 200, 0.3);
+  box-shadow: 0 0 20px rgba(255, 100, 200, 0.4);
+  pointer-events: none;
+}
+
+
+  /* 15 images → 360/15 = 24° apart */
+  .carousel img:nth-child(1)  { transform: rotateY(0deg) translateZ(550px); }
+  .carousel img:nth-child(2)  { transform: rotateY(24deg) translateZ(550px); }
+  .carousel img:nth-child(3)  { transform: rotateY(48deg) translateZ(550px); }
+  .carousel img:nth-child(4)  { transform: rotateY(72deg) translateZ(550px); }
+  .carousel img:nth-child(5)  { transform: rotateY(96deg) translateZ(550px); }
+  .carousel img:nth-child(6)  { transform: rotateY(120deg) translateZ(550px); }
+  .carousel img:nth-child(7)  { transform: rotateY(144deg) translateZ(550px); }
+  .carousel img:nth-child(8)  { transform: rotateY(168deg) translateZ(550px); }
+  .carousel img:nth-child(9)  { transform: rotateY(192deg) translateZ(550px); }
+  .carousel img:nth-child(10) { transform: rotateY(216deg) translateZ(550px); }
+  .carousel img:nth-child(11) { transform: rotateY(240deg) translateZ(550px); }
+  .carousel img:nth-child(12) { transform: rotateY(264deg) translateZ(550px); }
+  .carousel img:nth-child(13) { transform: rotateY(288deg) translateZ(550px); }
+  .carousel img:nth-child(14) { transform: rotateY(312deg) translateZ(550px); }
+  .carousel img:nth-child(15) { transform: rotateY(336deg) translateZ(550px); }
+
+  .content {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    font-size: 1.2rem;
+    background: rgba(255, 200, 230, 0.85);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(255,0,100,0.3);
+    position: relative;
+  }
+
+  /* Music button */
+  .music-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background: #ff3366;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(255,0,100,0.5);
+    z-index: 1000;
+  }
+
+  /* Floating hearts */
+  .heart {
+    position: fixed;
+    top: -20px;
+    font-size: 24px;
+    color: #ff3366;
+    animation: fall 6s linear infinite;
+    z-index: 500;
+    pointer-events: none;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-10px) scale(0.8); opacity: 1; }
+    50% { transform: scale(1.2); }
+    100% { transform: translateY(100vh) scale(1); opacity: 0; }
+  }
+
+</style>
+</head>
+<body>
+
+<button class="music-btn" id="musicBtn">🎵 Pause Music</button>
+
+<h1>🎉 Here’s to making unforgettable memories on your 18th birthday! 🎂</h1>
+
+<div class="carousel-wrapper">
+  <div class="carousel" id="carousel">
+    <img src="img_1.jpg">
+    <img src="img_2.jpg">
+    <img src="img_3.jpg">
+    <img src="img_4.jpg">
+    <img src="img_5.jpg">
+    <img src="img_6.jpg">
+    <img src="img_7.jpg">
+    <img src="img_8.jpg">
+    <img src="img_9.jpg">
+    <img src="img_10.jpg">
+    <img src="img_11.jpg">
+    <img src="img_12.jpg">
+    <img src="img_13.jpg">
+    <img src="img_14.jpg">
+    <img src="img_15.jpg">
+  </div>
+</div>
+
+<div class="content">
+  <h2>This is My Feelings Towards You ❤️</h2>
+  <p>My dear Suchita, today is 26th November 2025, and it is the happiest day for both of us. For you, it is the day you came into this world, and for me, it is the day I was gifted with the most precious blessing—my life partner, you. I have been liking you for the past four years, and this year when you accepted my proposal, my whole world changed. I know you have been struggling because your grandparents sometimes ignore you just for being the second daughter, and it hurts me to see you unhappy. I never want you to feel sad or alone because of this. I am always with you, and whenever you feel low, you can share everything with me without any hesitation.</p> 
+  <p>Whenever I talk to you, I feel something different—something so warm and special. No matter how long we talk, it always feels like time is too short for me. I don’t know how you feel when I talk with you, but for me, the moment I start talking to you, all my sadness and worries just disappear. You make my world brighter, my days happier, and my heart complete.</p> 
+  <p>I know I am not with you today to celebrate your birthday as person, but my heart and sole is always with you. Distance may keep us apart today, but my heart is always with you. On this special day, I just want to tell you how deeply I love you and how thankful I am to walk this journey of life with you by my side. Happy Birthday, my love—you are my everything.</p>
+</div>
+
+<audio id="birthdayMusic" src="happy-birthday-357371.mp3" autoplay loop></audio>
+
+<script>
+  const carousel = document.getElementById("carousel");
+  const images = carousel.querySelectorAll("img");
+  let isDragging = false;
+  let startX, startY;
+  let rotateX = 0, rotateY = 0;
+  let autoRotate = true;
+
+  document.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    autoRotate = false;
+    startX = e.clientX;
+    startY = e.clientY;
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+    autoRotate = true;
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if(isDragging){
+      let deltaX = e.clientX - startX;
+      let deltaY = e.clientY - startY;
+      rotateY += deltaX * 0.3;
+      rotateX -= deltaY * 0.3;
+      carousel.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      startX = e.clientX;
+      startY = e.clientY;
+    }
+  });
+
+  function animateCarousel(){
+    if(autoRotate && !isDragging){
+      rotateY += 0.2;
+      carousel.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    }
+    requestAnimationFrame(animateCarousel);
+  }
+  animateCarousel();
+
+  // Music control
+  const music = document.getElementById("birthdayMusic");
+  const musicBtn = document.getElementById("musicBtn");
+  musicBtn.addEventListener('click', () => {
+    if(music.paused){ music.play(); musicBtn.textContent='⏸ Pause Music'; }
+    else{ music.pause(); musicBtn.textContent='▶ Play Music'; }
+  });
+
+  // Floating hearts
+  function createHearts(){
+    setInterval(()=>{
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '❤️';
+      heart.style.left = Math.random()*window.innerWidth+'px';
+      heart.style.fontSize = (20+Math.random()*20)+'px';
+      document.body.appendChild(heart);
+      setTimeout(()=> heart.remove(), 6000);
+    }, 300);
+  }
+  createHearts();
+</script>
+</body>
+</html>

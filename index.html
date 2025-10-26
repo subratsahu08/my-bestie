@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BDY gift</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #ffe6f0;
+      font-family: cursive;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 20px 0;
+      font-size: 40px;
+      color: #ff1a4b;
+      text-align: center;
+      position: relative;
+      padding: 20px 40px;
+      background: rgb(237, 201, 220);
+      border-radius: 32px;
+      display: inline-block;
+    }
+
+    /* Corner hearts */
+    .corner-heart { position: absolute; color: red; }
+    .corner-heart.big { font-size: 28px; }
+    .corner-heart.small { font-size: 18px; }
+    .top-left.big { top: -20px; left: -20px; }
+    .top-left.small1 { top: -25px; left: 10px; }
+    .top-left.small2 { top: 10px; left: -25px; }
+    .top-right.big { top: -20px; right: -20px; }
+    .top-right.small1 { top: -25px; right: 10px; }
+    .top-right.small2 { top: 10px; right: -25px; }
+    .bottom-left.big { bottom: -20px; left: -20px; }
+    .bottom-left.small1 { bottom: -25px; left: 10px; }
+    .bottom-left.small2 { bottom: 10px; left: -25px; }
+    .bottom-right.big { bottom: -20px; right: -20px; }
+    .bottom-right.small1 { bottom: -25px; right: 10px; }
+    .bottom-right.small2 { bottom: 10px; right: -25px; }
+
+    /* Gift box */
+    .box {
+      position: relative;
+      width: 200px;
+      height: 150px;
+      margin-top: 40px;
+      transform-style: preserve-3d;
+      perspective: 800px;
+    }
+
+    /* Box faces */
+    .box .front, .box .back, .box .left, .box .right, .box .bottom {
+      position: absolute;
+      width: 200px;
+      height: 150px;
+      background: linear-gradient(145deg, #ff4d6d, #ff1a4b);
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .box .back {
+      transform: rotateY(180deg) translateZ(0px);
+    }
+
+    .box .left {
+      width: 30px;
+      transform: rotateY(-90deg) translateX(-30px);
+      transform-origin: left;
+      background: linear-gradient(145deg, #ff6666, #e6003c);
+      border-radius: 10px 0 0 10px;
+    }
+
+    .box .right {
+      width: 30px;
+      transform: rotateY(90deg) translateX(170px);
+      transform-origin: right;
+      background: linear-gradient(145deg, #ff6666, #e6003c);
+      border-radius: 0 10px 10px 0;
+    }
+
+    .box .bottom {
+      height: 30px;
+      width: 100%;
+      top: 150px;
+      transform: rotateX(90deg) translateY(-15px);
+      transform-origin: top;
+      background: linear-gradient(145deg, #ff6666, #e6003c);
+      border-radius: 0 0 10px 10px;
+    }
+
+    /* Lid */
+    .box .lid {
+      position: absolute;
+      width: 200px;
+      height: 40px;
+      top: -40px;
+      left: 0;
+      background: linear-gradient(145deg, #ff8c66, #ff6600);
+      border-radius: 10px 10px 0 0;
+      transform-origin: bottom;
+      transition: 0.5s;
+      z-index: 2;
+    }
+
+    .box .ribbon {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background: linear-gradient(to right, gold, orange);
+      transform: translateY(-50%);
+      z-index: 3;
+    }
+    .box .ribbon-vertical {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 20px;
+      height: 100%;
+      background: linear-gradient(to bottom, gold, orange);
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+    .box .bow {
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      transform: translateX(-50%);
+      z-index: 4;
+    }
+    .box .bow .loop {
+      position: absolute;
+      width: 20px;
+      height: 40px;
+      background: linear-gradient(to bottom, gold, orange);
+      border-radius: 50% 50% 0 0;
+    }
+    .box .bow .loop-left { transform: rotate(-45deg); left: 0; }
+    .box .bow .loop-right { transform: rotate(45deg); right: 0; }
+    .box .bow .knot {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      width: 15px;
+      height: 15px;
+      background: gold;
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    .subtext { font-size: 22px; color: #ff1a4b; margin-top: 40px; }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #ff1a4b;
+      border: none;
+      color: white;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover { background: #d40035; }
+
+    .surprise {
+      display: none;
+      margin-top: 30px;
+      font-size: 32px;
+      color: #ff1a4b;
+      animation: popUp 1s;
+    }
+    @keyframes popUp {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Falling hearts */
+    .heart {
+      position: fixed;
+      top: -10px;
+      color: red;
+      font-size: 80px;
+      animation: fall linear forwards;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    /* Balloon bunch */
+    .balloon-bunch {
+      position: fixed;
+      bottom: 0;
+      width: 200px;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      animation: float 3s ease-in-out infinite;
+      z-index: 5;
+    }
+    .balloon-bunch.left { left: 20px; }
+    .balloon-bunch.right { right: 20px; }
+
+    .balloon {
+      width: 60px;
+      height: 80px;
+      border-radius: 50%;
+      position: absolute;
+    }
+    .balloon:before {
+      content: "";
+      position:absolute;
+      top: 80px;
+      left: 50%;
+      width: 2px;
+      height: 400px; /* thread length */
+      background: #444;
+      transform: translateX(-50%);
+    }
+
+    /* Balloon colors */
+    .red { background: #ff4d4d; }
+    .yellow { background: #ffd633; }
+    .blue { background: #3399ff; }
+    .green { background: #33cc33; }
+    .pink { background: #ff66cc; }
+
+    /* Floating animation */
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-25px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Cakes */
+.cake {
+  position: fixed;
+  bottom: -20px;
+  font-size: 70px;
+  z-index: 6;
+}
+.left-cake { left: 350px; }   /* below left balloon bunch */
+.right-cake { right: 350px; } /* below right balloon bunch */
+
+  </style>
+</head>
+<body>
+
+  <!-- Birthday Heading -->
+  <h1>
+    🎉 HAPPY BIRTHDAY MY LOVE ❤️
+    <span class="corner-heart top-left big">❤️</span>
+    <span class="corner-heart top-left small1 small">❤️</span>
+    <span class="corner-heart top-left small2 small">❤️</span>
+    <span class="corner-heart top-right big">❤️</span>
+    <span class="corner-heart top-right small1 small">❤️</span>
+    <span class="corner-heart top-right small2 small">❤️</span>
+    <span class="corner-heart bottom-left big">❤️</span>
+    <span class="corner-heart bottom-left small1 small">❤️</span>
+    <span class="corner-heart bottom-left small2 small">❤️</span>
+    <span class="corner-heart bottom-right big">❤️</span>
+    <span class="corner-heart bottom-right small1 small">❤️</span>
+    <span class="corner-heart bottom-right small2 small">❤️</span>
+  </h1>
+
+  <!-- Gift -->
+  <p class="subtext">A small gift for you kitti🥰</p>
+  <div class="box" id="giftBox">
+    <div class="lid" id="lid"></div>
+    <div class="front"></div>
+    <div class="back"></div>
+    <div class="left"></div>
+    <div class="right"></div>
+    <div class="bottom"></div>
+    <div class="ribbon"></div>
+    <div class="ribbon-vertical"></div>
+    <div class="bow">
+      <div class="loop loop-left"></div>
+      <div class="loop loop-right"></div>
+      <div class="knot"></div>
+    </div>
+  </div>
+
+  <button onclick="openGift()">Open</button>
+
+  <div class="surprise" id="surpriseMsg">🎊 Thanks Suchita for Opening This small Gift😘 🎊</div>
+
+  <!-- Balloon bunch left -->
+  <div class="balloon-bunch left">
+    <div class="balloon red" style="top: 0; left: 60px;"></div>
+    <div class="balloon yellow" style="top: 0px; left: 100px;"></div>
+    <div class="balloon blue" style="top: 20px; left: 20px;"></div>
+    <div class="balloon green" style="top: 10px; left: 80px;"></div>
+    <div class="balloon pink" style="top: 10px; left: 40px;"></div>
+  </div>
+
+  <!-- Balloon bunch right -->
+  <div class="balloon-bunch right">
+    <div class="balloon red" style="top: 0px; left: 60px;"></div>
+    <div class="balloon yellow" style="top: 20px; left: 100px;"></div>
+    <div class="balloon blue" style="top: 20px; left: 20px;"></div>
+    <div class="balloon green" style="top: 10px; left: 80px;"></div>
+    <div class="balloon pink" style="top: 10px; left: 40px;"></div>
+  </div>
+
+   <!-- Cake left -->
+  <div class="cake left-cake">🎂</div>
+
+  <!-- Cake right -->
+  <div class="cake right-cake">🎂</div>
+
+  <script>
+    // Falling hearts
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      const hearts = ["♡", "❤️"];
+  heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 30 + 15 + "px";
+      heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 30);
+
+    // Gift lid animation
+    function openGift() {
+      document.getElementById("lid").style.transform = "rotateX(-120deg)";
+      setTimeout(() => {
+        document.getElementById("surpriseMsg").style.display = "block";
+      }, 700);
+      setTimeout(() => {
+        window.location.href = "internal.html";
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
