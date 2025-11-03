@@ -16,6 +16,51 @@
       align-items: center;
     }
 
+    /* ================= INTRO SCREEN ================= */
+    #introScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #ff4d88, #ff1a4b);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 1.5s ease;
+    }
+
+    #countdown {
+      font-size: 90px;
+      font-weight: bold;
+      margin-bottom: 30px;
+      text-shadow: 0 0 25px #fff;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.8; }
+    }
+
+    #introText {
+      font-size: 60px;
+      font-weight: bold;
+      text-align: center;
+      text-shadow: 0 0 20px #fff, 0 0 50px #ff66b2, 0 0 100px #ff1a4b;
+      opacity: 0;
+      animation: fadeInText 2s ease forwards;
+      animation-delay: 10s;
+    }
+
+    @keyframes fadeInText {
+      to { opacity: 1; transform: scale(1.1); }
+    }
+
+    /* ================= MAIN PAGE (UNCHANGED) ================= */
     h1 {
       margin: 20px 0;
       font-size: 40px;
@@ -28,7 +73,6 @@
       display: inline-block;
     }
 
-    /* Corner hearts */
     .corner-heart { position: absolute; color: red; }
     .corner-heart.big { font-size: 28px; }
     .corner-heart.small { font-size: 18px; }
@@ -45,7 +89,6 @@
     .bottom-right.small1 { bottom: -25px; right: 10px; }
     .bottom-right.small2 { bottom: 10px; right: -25px; }
 
-    /* Gift box */
     .box {
       position: relative;
       width: 200px;
@@ -55,7 +98,6 @@
       perspective: 800px;
     }
 
-    /* Box faces */
     .box .front, .box .back, .box .left, .box .right, .box .bottom {
       position: absolute;
       width: 200px;
@@ -65,9 +107,7 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
-    .box .back {
-      transform: rotateY(180deg) translateZ(0px);
-    }
+    .box .back { transform: rotateY(180deg) translateZ(0px); }
 
     .box .left {
       width: 30px;
@@ -95,7 +135,6 @@
       border-radius: 0 0 10px 10px;
     }
 
-    /* Lid */
     .box .lid {
       position: absolute;
       width: 200px;
@@ -119,6 +158,7 @@
       transform: translateY(-50%);
       z-index: 3;
     }
+
     .box .ribbon-vertical {
       position: absolute;
       top: 0;
@@ -129,6 +169,7 @@
       transform: translateX(-50%);
       z-index: 3;
     }
+
     .box .bow {
       position: absolute;
       top: -25px;
@@ -138,6 +179,7 @@
       transform: translateX(-50%);
       z-index: 4;
     }
+
     .box .bow .loop {
       position: absolute;
       width: 20px;
@@ -145,6 +187,7 @@
       background: linear-gradient(to bottom, gold, orange);
       border-radius: 50% 50% 0 0;
     }
+
     .box .bow .loop-left { transform: rotate(-45deg); left: 0; }
     .box .bow .loop-right { transform: rotate(45deg); right: 0; }
     .box .bow .knot {
@@ -159,6 +202,7 @@
     }
 
     .subtext { font-size: 22px; color: #ff1a4b; margin-top: 40px; }
+
     button {
       margin-top: 20px;
       padding: 10px 20px;
@@ -170,6 +214,7 @@
       cursor: pointer;
       transition: 0.3s;
     }
+
     button:hover { background: #d40035; }
 
     .surprise {
@@ -179,12 +224,12 @@
       color: #ff1a4b;
       animation: popUp 1s;
     }
+
     @keyframes popUp {
       0% { transform: scale(0); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
     }
 
-    /* Falling hearts */
     .heart {
       position: fixed;
       top: -10px;
@@ -192,14 +237,11 @@
       font-size: 80px;
       animation: fall linear forwards;
     }
+
     @keyframes fall {
-      to {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
+      to { transform: translateY(100vh); opacity: 0; }
     }
 
-    /* Balloon bunch */
     .balloon-bunch {
       position: fixed;
       bottom: 0;
@@ -211,6 +253,7 @@
       animation: float 3s ease-in-out infinite;
       z-index: 5;
     }
+
     .balloon-bunch.left { left: 20px; }
     .balloon-bunch.right { right: 20px; }
 
@@ -220,46 +263,50 @@
       border-radius: 50%;
       position: absolute;
     }
+
     .balloon:before {
       content: "";
       position:absolute;
       top: 80px;
       left: 50%;
       width: 2px;
-      height: 400px; /* thread length */
+      height: 400px;
       background: #444;
       transform: translateX(-50%);
     }
 
-    /* Balloon colors */
     .red { background: #ff4d4d; }
     .yellow { background: #ffd633; }
     .blue { background: #3399ff; }
     .green { background: #33cc33; }
     .pink { background: #ff66cc; }
 
-    /* Floating animation */
     @keyframes float {
       0% { transform: translateY(0); }
       50% { transform: translateY(-25px); }
       100% { transform: translateY(0); }
     }
 
-    /* Cakes */
-.cake {
-  position: fixed;
-  bottom: -20px;
-  font-size: 70px;
-  z-index: 6;
-}
-.left-cake { left: 350px; }   /* below left balloon bunch */
-.right-cake { right: 350px; } /* below right balloon bunch */
+    .cake {
+      position: fixed;
+      bottom: -20px;
+      font-size: 70px;
+      z-index: 6;
+    }
 
+    .left-cake { left: 350px; }
+    .right-cake { right: 350px; }
   </style>
 </head>
 <body>
 
-  <!-- Birthday Heading -->
+  <!-- INTRO -->
+  <div id="introScreen">
+    <div id="countdown">10</div>
+    <div id="introText">🎉 Happy Birthday My Love ❤️</div>
+  </div>
+
+  <!-- MAIN PAGE -->
   <h1>
     🎉 HAPPY BIRTHDAY MY LOVE ❤️
     <span class="corner-heart top-left big">❤️</span>
@@ -276,7 +323,6 @@
     <span class="corner-heart bottom-right small2 small">❤️</span>
   </h1>
 
-  <!-- Gift -->
   <p class="subtext">A small gift for you kitti🥰</p>
   <div class="box" id="giftBox">
     <div class="lid" id="lid"></div>
@@ -295,10 +341,9 @@
   </div>
 
   <button onclick="openGift()">Open</button>
-
   <div class="surprise" id="surpriseMsg">🎊 Thanks Suchita for Opening This small Gift😘 🎊</div>
 
-  <!-- Balloon bunch left -->
+  <!-- Balloons + Cakes -->
   <div class="balloon-bunch left">
     <div class="balloon red" style="top: 0; left: 60px;"></div>
     <div class="balloon yellow" style="top: 0px; left: 100px;"></div>
@@ -307,7 +352,6 @@
     <div class="balloon pink" style="top: 10px; left: 40px;"></div>
   </div>
 
-  <!-- Balloon bunch right -->
   <div class="balloon-bunch right">
     <div class="balloon red" style="top: 0px; left: 60px;"></div>
     <div class="balloon yellow" style="top: 20px; left: 100px;"></div>
@@ -316,19 +360,33 @@
     <div class="balloon pink" style="top: 10px; left: 40px;"></div>
   </div>
 
-   <!-- Cake left -->
   <div class="cake left-cake">🎂</div>
-
-  <!-- Cake right -->
   <div class="cake right-cake">🎂</div>
 
   <script>
-    // Falling hearts
+    // Countdown timer
+    let timeLeft = 10;
+    const countdown = document.getElementById("countdown");
+    const intro = document.getElementById("introScreen");
+
+    const timer = setInterval(() => {
+      timeLeft--;
+      countdown.textContent = timeLeft;
+      if (timeLeft === 0) clearInterval(timer);
+    }, 1000);
+
+    // Hide intro after 12s (10s countdown + fade)
+    setTimeout(() => {
+      intro.style.opacity = "0";
+      setTimeout(() => (intro.style.display = "none"), 1500);
+    }, 12000);
+
+    // Hearts animation
     function createHeart() {
       const heart = document.createElement("div");
       heart.classList.add("heart");
       const hearts = ["♡", "❤️"];
-  heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+      heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
       heart.style.left = Math.random() * 100 + "vw";
       heart.style.fontSize = Math.random() * 30 + 15 + "px";
       heart.style.animationDuration = Math.random() * 3 + 2 + "s";
@@ -337,7 +395,7 @@
     }
     setInterval(createHeart, 30);
 
-    // Gift lid animation
+    // Gift open animation
     function openGift() {
       document.getElementById("lid").style.transform = "rotateX(-120deg)";
       setTimeout(() => {
